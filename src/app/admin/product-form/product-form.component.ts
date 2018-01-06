@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../../category.service';
 import { ProductService } from '../../product.service';
@@ -10,12 +11,16 @@ import { ProductService } from '../../product.service';
 export class ProductFormComponent implements OnInit {
   categories$;
 
-  constructor(categoryService: CategoryService, private productService: ProductService) {
+  constructor(
+    private router: Router,
+    private categoryService: CategoryService,
+    private productService: ProductService) {
     this.categories$ = categoryService.getCategories();
   }
 
   save(product) {
     this.productService.create(product);
+    this.router.navigate(['/admin/products']);
   }
 
   ngOnInit() {
